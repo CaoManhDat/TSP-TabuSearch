@@ -1,6 +1,7 @@
 #include "solution.h"
 #include <iostream>
 #include <time.h>
+#include <stdlib.h> 
 
 using namespace std;
 Solution::Solution(Map* map){
@@ -42,15 +43,15 @@ int Solution::getV(int key){
 	return this->v[key];
 }
 void Solution::set(int key, int value){
-	this->v[key] = value;	
+	this->v[key] = value;
 }
 
-void Solution::swapSolve(int i, int j){		
-	swap(this->v[i],this->v[j]);	
+void Solution::swapSolve(int i, int j){
+	swap(this->v[i],this->v[j]);
 }
 
-double Solution::getScore(){	
-	computeScore();	
+double Solution::getScore(){
+	computeScore();
 	return score;
 }
 

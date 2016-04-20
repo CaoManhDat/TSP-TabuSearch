@@ -3,6 +3,7 @@
 #include<fstream>
 #include<string>
 #include<cmath>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -15,7 +16,7 @@ double sqr(double x){
 }
 
 double Map::getDistance(int vertexA, int vertexB){
-	double distance = sqrt(  
+	double distance = sqrt(
 								sqr( this->coordinate[vertexA][0] - this->coordinate[vertexB][0] )
 								+ sqr( this->coordinate[vertexA][1] - this->coordinate[vertexB][1] )
 							);
@@ -30,8 +31,8 @@ Map::Map(string filePath){
 	dataFile.open(filePath.c_str());
 	if(dataFile.is_open()){
 		bool vertexDataRegion = false;
-		while(dataFile.good()){			
-			getline(dataFile,line);			
+		while(dataFile.good()){
+			getline(dataFile,line);
 
 			if(vertexDataRegion){
 				int vertexId;
@@ -39,14 +40,14 @@ Map::Map(string filePath){
 				double posY;
 				sscanf(line.c_str(), "%d %lf %lf", &vertexId,&posX,&posY);
 				vertexId--; // we store vertex from 0
-				
+
 				this->coordinate[vertexId][0] = posX;
 				this->coordinate[vertexId][1] = posY;
 			}
 
 			if(line.find(DIMESION_PROPERTY) == 0){
 				unsigned int index = 0;
-				for(; index < line.size(); index++){ 
+				for(; index < line.size(); index++){
 					if ( line[index] >= '0' && line[index] <= '9') break;
 				}
 				this->numVertex = atoi(line.substr(index,100).c_str());
@@ -55,13 +56,13 @@ Map::Map(string filePath){
 				this->coordinate = new double*[this->numVertex];
 				for(int i = 0; i < this->numVertex; i++){
 					this->coordinate[i] = new double[2];
-				}				
+				}
 			}
 
 			if(line.find(BEST_PROPERTY) == 0){
 				int bestValue;
 				unsigned int index = 0;
-				for(; index < line.size(); index++){ 
+				for(; index < line.size(); index++){
 					if ( line[index] >= '0' && line[index] <= '9') break;
 				}
 				bestValue = atoi(line.substr(index,100).c_str());
